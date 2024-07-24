@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responde Rapido</title>
+    <link rel = "stylesheet" href = "misestilos.css">
+</head>
+<body onload = "comienzaCuentaRegresiva()">
+    <h2>Responde a las preguntas dentro de los 30 segundos <span id = "cuentaRegresiva"></span></h2>
+    <p>1.- Cual es la Capital de Chile?</p>
+    <input type = "texto" id = "respuesta1"><br>
+    <p>2.- Cual es el nombre de Einstein?</p>
+    <input type = "texto" id = "respuesta2"><br>
+    <p>3.- Año que se descubrio America?</p>
+    <input type = "texto" id = "respuesta3"><br>
+    <p>4.- Cuales son los 3 colores primarios?</p>
+    <input type = "texto" id = "respuesta4"><br>
+    <p>5.- Deporte mas popular del mundo?</p>
+    <input type = "texto" id = "respuesta5">
+    <br><br>
+    <button onclick = "finalizado()">Termine...¡</botton>
+    <br>
+    <button onclick = "volverAIntentar()">Intentar nuevamente</botton>
+
+    <audio id = "audioFinal">
+        <source src = "gameover.mp3" type = "audio/mpeg">
+        Sonido no habilitado
+    </audio>
+<script>
+    let tiempoTerminado;
+    let intervaloDeTiempo;
+
+    function comienzaCuentaRegresiva() {
+        tiempoTerminado = setTimeout(tiempoCumplido, 30000);
+        IntervaloDeTiempo = setInterval(tictac, 1000);
+
+        document.getElementById("cuentaRegresiva").textContent =30;
+    }
+
+    function tictac(){
+        let tiempo = document.getElementById("cuentaRegresiva").textContent
+
+        document.getElementById("cuentaRegresiva").textContent = tiempo - 1;
+    }
+
+    function tiempoCumplido(){
+        clearInterval(IntervaloDeTiempo);
+        document.getElementById("cuentaRegresiva").textContent = 0;
+        document.getElementById("audioFinal").play();
+        alert("Game Over: Juego Terminado, se acabo el Tiempo");
+    }
+
+    function finalizado(){
+        clearTimeout(tiempoTerminado);
+        clearInterval(intervaloDeTiempo);
+
+        let fecha = new Date();
+        let respuesta1 = document.getElementById("respuesta1").value;
+        let respuesta2 = document.getElementById("respuesta2").value;
+        let respuesta3 = document.getElementById("respuesta3").value;
+        let respuesta4 = document.getElementById("respuesta4").value;
+        let respuesta5 = document.getElementById("respuesta5").value;
+    
+        let mensaje = fecha.toLocaleDateString("es-Es") + "\n" + 
+                        "1.- " + respuesta1 + "\n" +
+                        "2.- " + respuesta2 + "\n" +
+                        "3.- " + respuesta3 + "\n" +
+                        "4.- " + respuesta4 + "\n" +
+                        "5.- " + respuesta5;
+
+        alert(mensaje);
+    }
+
+    function volverAIntentar() {
+        location.reload();
+    }
+
+</script>
+
+</body>
+</html>
